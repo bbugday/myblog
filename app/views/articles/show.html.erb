@@ -1,3 +1,10 @@
+<% read_time = @article.text.scan(/\w+/).size/130
+  read_time = read_time == 0 ? 1 : read_time%>
+
+<p>Estimated Reading Time: <%= read_time %> min </p>
+<p><%= time_ago_in_words(@article.created_at).capitalize %> ago</p>
+
+
 <p>
   <strong>Title:</strong>
   <%= @article.title %>
@@ -12,6 +19,28 @@
   <strong>User:</strong>
   <%= @article.user.email %>
 </p>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.user.email %>
+  </p>
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+  <p>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_article_path(@article) %> 
 <%= link_to 'Back', articles_path %>
