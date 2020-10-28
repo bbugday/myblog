@@ -1,63 +1,143 @@
-<% read_time = @article.text.scan(/\w+/).size/130
-  read_time = read_time == 0 ? 1 : read_time%>
 
-<p>Estimated Reading Time: <%= read_time %> min </p>
-<p><%= time_ago_in_words(@article.created_at).capitalize %> ago</p>
-<p><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></p>
-<p><%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%></p>
+<div class="container">
 
+    <div class="row">
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
 
-<p>
-  <strong>User:</strong>
-  <%= @article.user.email %>
-</p>
+        <!-- Title -->
+        <h1 class="mt-4"><%= @article.title %></h1>
 
-<% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
-<% if pre_like %>
-  <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
-<% else %>
-  <%= button_to 'Like', article_likes_path(@article), method: :post %>
-<% end %>
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#"><%= @article.user.email %></a>
+        </p>
 
-<% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
-<% if pre_dislike %>
-  <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
-<% else %>
-  <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
-<% end %>
+        <hr>
 
+        <!-- Date/Time -->
+        <% read_time = @article.text.scan(/\w+/).size/130
+        read_time = read_time == 0 ? 1 : read_time%>
+        <p><%=time_ago_in_words(@article.created_at).capitalize %> ago</p>
+        <p>Estimated reading time: <%= read_time %></p>
+        <%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%>
+        <%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%></p>
 
-<h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.user.email %>
-  </p>
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
+        <hr>
 
-<h2>Add a comment:</h2>
-<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-  <p>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <p><%= @article.text %></p>
+
+        <hr>
+
+        <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
+        <% if pre_like %>
+          <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
+        <% else %>
+          <%= button_to 'Like', article_likes_path(@article), method: :post %>
+        <% end %>
+
+        <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
+        <% if pre_dislike %>
+          <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
+        <% else %>
+          <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
+        <% end %>
+
+        <!-- Comments 
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>-->
+
+        <!-- Single Comment -->
+        <% @article.comments.each do |comment| %>
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0"><%= comment.user.email %></h5>
+            <%= comment.body %>
+          </div>
+        </div>
+        <% end %>
+
+        <h2>Add a comment:</h2>
+        <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+          <p>
+            <%= form.text_area :body %>
+          </p>
+          <p>
+            <%= form.submit %>
+          </p>
+        <% end %>
+
+        
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        
+        <div class="card my-4">
+          <div class="btn btn-primary">
+            <%= link_to 'New Article', new_article_path, :class => "btn btn-primary" %> 
+          </div>
+        </div>
+
+        <div class="card my-4">
+          <h5 class="card-header">Tags</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Rails</a>
+                  </li>
+                  <li>
+                    <a href="#">Ruby</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Bootstrap</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
 
 <%= link_to 'Edit', edit_article_path(@article) %> 
 <%= link_to 'Back', articles_path %>
