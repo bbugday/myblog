@@ -4,6 +4,7 @@
 <p>Estimated Reading Time: <%= read_time %> min </p>
 <p><%= time_ago_in_words(@article.created_at).capitalize %> ago</p>
 <p><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+<p><%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%></p>
 
 
 <p>
@@ -26,6 +27,13 @@
   <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
 <% else %>
   <%= button_to 'Like', article_likes_path(@article), method: :post %>
+<% end %>
+
+<% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
+<% if pre_dislike %>
+  <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
+<% else %>
+  <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
 <% end %>
 
 
