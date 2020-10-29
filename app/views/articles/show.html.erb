@@ -40,7 +40,9 @@
         <hr>
 
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+        <% if @article.cover.attached? %>
+          <img src="<%=(url_for(@article.cover))%>">
+        <% end %>
 
         <hr>
 

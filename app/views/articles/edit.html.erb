@@ -26,7 +26,12 @@
 			<%= form.label :text %><br>
 			<%= form.text_area :text %>
 		</p>
-	
+
+		<p>
+			<%= form.label "Cover Image" %>
+			<%= form.file_field :cover %>
+		</p>
+
 		<p>
 			<%= form.submit %>
 		</p>
