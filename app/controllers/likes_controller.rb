@@ -32,5 +32,5 @@ class LikesController < ApplicationController
 
   def find_like
     @like = @article.likes.find(params[:id])
- end
+  end
 end

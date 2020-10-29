@@ -32,5 +32,5 @@ class DislikesController < ApplicationController
 
   def find_dislike
     @dislike = @article.dislikes.find(params[:id])
- end
+  end
 end
