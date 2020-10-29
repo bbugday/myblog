@@ -5,7 +5,19 @@
 
       <!-- Post Content Column -->
       <div class="col-lg-8">
+        <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
+        <% if pre_like %>
+          <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
+        <% else %>
+          <%= button_to 'Like', article_likes_path(@article), method: :post %>
+        <% end %>
 
+        <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
+        <% if pre_dislike %>
+          <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
+        <% else %>
+          <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
+        <% end %>
         <!-- Title -->
         <h1 class="mt-4"><%= @article.title %></h1>
 
@@ -37,19 +49,7 @@
 
         <hr>
 
-        <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
-        <% if pre_like %>
-          <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
-        <% else %>
-          <%= button_to 'Like', article_likes_path(@article), method: :post %>
-        <% end %>
-
-        <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
-        <% if pre_dislike %>
-          <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
-        <% else %>
-          <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
-        <% end %>
+        
 
         <!-- Comments 
         <div class="card my-4">
