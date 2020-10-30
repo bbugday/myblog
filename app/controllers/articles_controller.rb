@@ -50,6 +50,6 @@ class ArticlesController < ApplicationController
 			@article = Article.find(params[:id])
 		end
 		def article_params
-			params.require(:article).permit(:title, :text, :cover)
+			params.require(:article).permit(:title, :text, :cover,:tag_list)
 		end
 	end

@@ -3,9 +3,9 @@
   <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user.email %></small>
 
   <%= form_for [comment, Comment.new] do |f| %>
-      <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-      <%= f.submit "Reply"  %>
-      <% end %>
+    <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
+    <%= f.submit "Reply"  %>
+  <% end %>
 
   <ul>
       <%= render comment.comments %>

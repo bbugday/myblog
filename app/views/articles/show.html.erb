@@ -21,6 +21,13 @@
         <!-- Title -->
         <h1 class="mt-4"><%= @article.title %></h1>
 
+        <p>
+          Tags:
+          <% @article.tags.each do |tag| %>
+            <%= link_to tag.name, tag_path(tag) %>
+          <% end %>
+        </p>
+
         <!-- Author -->
         <p class="lead">
           by
