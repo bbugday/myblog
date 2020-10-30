@@ -36,9 +36,9 @@
             <div style="float: left; width: auto;"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%> &nbsp;</div>
             <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
             <% if pre_like %>
-              <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
+              <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete, class: "btn btn-warning" %>
             <% else %>
-              <%= button_to 'Like', article_likes_path(@article), method: :post %>
+              <%= button_to 'Like', article_likes_path(@article), method: :post, class: "btn btn-primary" %>
             <% end %>
           </p>
           
@@ -48,9 +48,9 @@
           <div style="float: left; width: auto;"><%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%> &nbsp;</div>
             <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
             <% if pre_dislike %>
-              <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
+              <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete, class: "btn btn-warning" %>
             <% else %>
-              <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
+              <%= button_to 'Dislike', article_dislikes_path(@article), method: :post, class: "btn btn-danger" %>
             <% end %>
           </p>
         </p>
