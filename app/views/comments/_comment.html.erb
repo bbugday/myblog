@@ -1,10 +1,10 @@
 <li>
-  <%= comment.body %> -
-  <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago by <%= comment.user.email %></small>
+  <div style="margin-top: 1rem; margin-bottom: 1rem"><%= comment.body %> -
+  <small>Submitted <%= time_ago_in_words(comment.created_at) %> ago by <a href="#"><%= comment.user.email %></a></small></div>
 
   <%= form_for [comment, Comment.new] do |f| %>
-    <%= f.text_area :body, placeholder: "Add a Reply" %><br/>
-    <%= f.submit "Reply"  %>
+    <%= f.text_field :body, placeholder: "Add a Reply", class: "form-control " %><br/>
+    <%= f.submit "Reply", :class => "btn btn-primary"   %>
   <% end %>
 
   <ul>
