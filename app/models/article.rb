@@ -1,6 +1,6 @@
 class Article < ApplicationRecord
   has_one_attached :cover
-  has_many :comments, dependent: :destroy
+  has_many :comments, dependent: :destroy, as: :commentable
   has_many :likes, dependent: :destroy
   has_many :dislikes, dependent: :destroy
   belongs_to :user
