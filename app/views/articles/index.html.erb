@@ -49,26 +49,9 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="#">Rails</a>
-                  </li>
-                  <li>
-                    <a href="#">Ruby</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Bootstrap</a>
+                    <% @tags.each do |tag| %>
+                      <%= link_to tag.name, tag_path(tag) %>
+                    <% end %>
                   </li>
                 </ul>
               </div>

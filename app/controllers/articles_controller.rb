@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
 	before_action :find_article, only: [:show, :edit, :update, :destroy]
 	def index
-    @articles = Article.all
+		@articles = Article.all
+		@tags = Tag.all
   end
 
 	def show
-  	@article = Article.find(params[:id])
+		@article = Article.find(params[:id])
+		@tags = Tag.all
 	end
 	
 	def new

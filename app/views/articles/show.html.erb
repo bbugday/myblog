@@ -32,20 +32,27 @@
         <p><%=time_ago_in_words(@article.created_at).capitalize %> ago</p>
         <p>Estimated reading time: <%= read_time %> min</p>
         <p>
-          <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
-          <% if pre_like %>
-            <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
-          <% else %>
-            <%= button_to 'Like', article_likes_path(@article), method: :post %>
-          <% end %>
-          <%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%>
-          <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
-          <% if pre_dislike %>
-            <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
-          <% else %>
-            <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
-          <% end %>
-          <%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%>
+          <p>
+            <div style="float: left; width: auto;"><%= @article.likes.count %> <%= (@article.likes.count) == 1 ? 'Like' : 'Likes'%> &nbsp;</div>
+            <% pre_like = @article.likes.find { |like| like.user_id == current_user.id} %>
+            <% if pre_like %>
+              <%= button_to 'Unlike', article_like_path(@article, pre_like), method: :delete %>
+            <% else %>
+              <%= button_to 'Like', article_likes_path(@article), method: :post %>
+            <% end %>
+          </p>
+          
+          
+          
+          <p>
+          <div style="float: left; width: auto;"><%= @article.dislikes.count %> <%= (@article.dislikes.count) == 1 ? 'Dislike' : 'Dislikes'%> &nbsp;</div>
+            <% pre_dislike = @article.dislikes.find { |dislike| dislike.user_id == current_user.id} %>
+            <% if pre_dislike %>
+              <%= button_to 'Undo Dislike', article_dislike_path(@article, pre_dislike), method: :delete %>
+            <% else %>
+              <%= button_to 'Dislike', article_dislikes_path(@article), method: :post %>
+            <% end %>
+          </p>
         </p>
         
 
@@ -63,20 +70,6 @@
 
         <hr>
 
-        
-
-        <!-- Comments 
-        <div class="card my-4">
-          <h5 class="card-header">Leave a Comment:</h5>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-        </div>-->
 
         <h3>Comments</h3>
           <%= form_for [@article, Comment.new] do |f| %>
@@ -107,26 +100,9 @@
               <div class="col-lg-6">
                 <ul class="list-unstyled mb-0">
                   <li>
-                    <a href="#">Rails</a>
-                  </li>
-                  <li>
-                    <a href="#">Ruby</a>
-                  </li>
-                  <li>
-                    <a href="#">HTML</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
-                  <li>
-                    <a href="#">JavaScript</a>
-                  </li>
-                  <li>
-                    <a href="#">CSS</a>
-                  </li>
-                  <li>
-                    <a href="#">Bootstrap</a>
+                    <% @tags.each do |tag| %>
+                      <%= link_to tag.name, tag_path(tag) %>
+                    <% end %>
                   </li>
                 </ul>
               </div>
